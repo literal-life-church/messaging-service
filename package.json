@@ -1,19 +1,20 @@
 {
-  "name": "literallifechurch",
+  "name": "literal-life-church-messaging-service",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "deploy": "twilio-run deploy",
-    "start": "twilio-run",
-    "tunnel": "twilio-run --ngrok"
+    "deploy": "twilio serverless:deploy",
+    "start": "twilio serverless:start",
+    "tunnel": "twilio serverless:start --ngrok=''"
   },
   "dependencies": {
-    "twilio": "^3.56"
+    "twilio": "3.76.1",
+    "@twilio/runtime-handler": "1.2.2"
   },
   "devDependencies": {
-    "twilio-run": "^2.6.0"
+    "twilio-run": "3.4.1"
   },
   "engines": {
-    "node": "10"
+    "node": "14"
   }
 }
