@@ -3,6 +3,7 @@
 const assets = Runtime.getAssets();
 const twilio = require("twilio");
 const Config = require(assets["/Config.js"].path);
+const PhoneRegistryModel = require(assets["/models/PhoneRegistryModel.js"].path);
 
 class BaseAction {
     constructor(commandModel) {
@@ -11,10 +12,6 @@ class BaseAction {
         this.phoneNumber = commandModel.phoneNumber
         this.message = commandModel.message
         this.notify = client.notify.services(Config.NotifyServiceSid);
-    }
-
-    run(callback) {
-        callback(Config.NotImplementedCommandMessage, null);
     }
 
     _isPhoneNumberAlreadyRegistered() {
@@ -27,7 +24,10 @@ class BaseAction {
 
                 bindings.forEach(item => {
                     if (item.address === this.phoneNumber) {
-                        resolve(true);
+                        resolve(new PhoneRegistryModel(
+                            true, item.tags
+                        ));
+
                         didResolve = true;
                     }
                 });
@@ -40,7 +40,9 @@ class BaseAction {
                 }
             }
 
-            resolve(false);
+            resolve(new PhoneRegistryModel(
+                false, []
+            ));
         });
     }
 }

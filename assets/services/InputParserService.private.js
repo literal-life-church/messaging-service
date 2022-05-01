@@ -20,7 +20,13 @@ class InputParserService {
     }
 
     get _cleanUpInput() {
-        return this.event.Body.trim() || "";
+        let body = this.event.Body;
+
+        if (body == undefined || body == null) {
+            return ""
+        }
+
+        return body.trim();
     }
 
     get _command() {
@@ -34,16 +40,15 @@ class InputParserService {
 
         switch (command) {
             case "broadcast":
-                return InputCommandEnum.BROADCAST;
+                return InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR;
 
             case "help":
                 return InputCommandEnum.HELP;
 
             case "subscribe":
-                return InputCommandEnum.SUBSCRIBE;
-
             case "suscribe": // Common misspelling of "subscribe"
-                return InputCommandEnum.SUBSCRIBE;
+            case "subcribe": // Another one
+                return InputCommandEnum.SUBSCRIBE_ANNOUNCEMENT_CALENDAR;
 
             default:
                 return InputCommandEnum.NONE;
@@ -52,6 +57,10 @@ class InputParserService {
 
     get _formattedPhoneNumber() {
         let from = this.event.From;
+
+        if (from == undefined || from == null) {
+            return "";
+        }
 
         if (from.indexOf("+") !== 0) {
             return `+1${from}`;
@@ -73,7 +82,7 @@ class InputParserService {
         if (inputWords.length <= 1) {
             return "";
         }
-        
+
         return inputWords.slice(1).join(" ");
     }
 }

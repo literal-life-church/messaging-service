@@ -2,9 +2,10 @@
 
 const InputCommandEnum = {
     NONE: 0,
-    BROADCAST: 1,
-    HELP: 2,
-    SUBSCRIBE: 3
+    HELP: 1,
+
+    BROADCAST_ANNOUNCEMENT_CALENDAR: 2,
+    SUBSCRIBE_ANNOUNCEMENT_CALENDAR: 3
 };
 
 Object.freeze(InputCommandEnum);

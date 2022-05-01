@@ -5,7 +5,9 @@
   "scripts": {
     "deploy": "twilio serverless:deploy",
     "start": "twilio serverless:start",
-    "tunnel": "twilio serverless:start --ngrok=''"
+    "start:debug": "twilio serverless:start --inspect=\"\"",
+    "start:tunnel": "twilio serverless:start --ngrok=\"\"",
+    "start:tunnel:debug": "twilio serverless:start --inspect=\"\" --ngrok=\"\""
   },
   "dependencies": {
     "twilio": "3.76.1",
