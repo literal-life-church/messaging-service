@@ -1,6 +1,7 @@
 "use strict";
 
 const assets = Runtime.getAssets();
+const BroadcastAction = require(assets["/actions/BroadcastAction.js"].path);
 const Config = require(assets["/Config.js"].path);
 const InputCommandEnum = require(assets["/enums/InputCommandEnum.js"].path);
 const InputParserService = require(assets["/services/InputParserService.js"].path);
@@ -13,12 +14,27 @@ exports.handler = (context, event, callback) => {
     let outcome = null;
 
     switch (model.command) {
+        case InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR:
+            const broadcast = new BroadcastAction(model);
+
+            outcome = broadcast.run(
+                Config.AnnouncementCalendar.Broadcast.Success,
+                Config.AnnouncementCalendar.Broadcast.EmptyMessage,
+                Config.AnnouncementCalendar.Broadcast.Unauthorized,
+                Config.AnnouncementCalendar.Broadcast.AuthorizedPhoneNumbers,
+                Config.AnnouncementCalendar.BindingType,
+                Config.AnnouncementCalendar.Tags
+            );
+
+            break;
+
         case InputCommandEnum.SUBSCRIBE_ANNOUNCEMENT_CALENDAR:
             const action = new SubscribeAction(model);
 
             outcome = action.run(
-                Config.AnnouncementCalendar.WelcomeMessage,
-                Config.AnnouncementCalendar.ExistingUserMessage,
+                Config.AnnouncementCalendar.Subscribe.NewUser,
+                Config.AnnouncementCalendar.Subscribe.ExistingUser,
+                Config.AnnouncementCalendar.BindingType,
                 Config.AnnouncementCalendar.Tags
             );
 

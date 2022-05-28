@@ -5,7 +5,7 @@ const BaseAction = require(assets["/actions/BaseAction.js"].path);
 const Crypto = require("crypto");
 
 class SubscribeAction extends BaseAction {
-    run(registrationSuccessMessage, alreadyRegisteredMessage, tags) {
+    run(registrationSuccessMessage, alreadyRegisteredMessage, bindingType, tags) {
         return this._isPhoneNumberAlreadyRegistered()
             .then(registrationStatus => {
                 if (registrationStatus.isRegistered) {
@@ -13,12 +13,12 @@ class SubscribeAction extends BaseAction {
                 }
 
                 let identity = Crypto.randomBytes(16).toString("hex");
-            
+
                 return this.notify.bindings.create({
-                    identity: identity,
-                    bindingType: 'sms',
                     address: this.phoneNumber,
-                    tags: tags
+                    bindingType: bindingType,
+                    identity: identity,
+                    tag: tags
                 });
             })
             .then(notification => {
