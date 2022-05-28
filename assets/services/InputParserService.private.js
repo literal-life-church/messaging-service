@@ -42,9 +42,6 @@ class InputParserService {
             case "broadcast":
                 return InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR;
 
-            case "help":
-                return InputCommandEnum.HELP;
-
             case "subscribe":
             case "suscribe": // Common misspelling of "subscribe"
             case "subcribe": // Another one
@@ -62,11 +59,11 @@ class InputParserService {
             return "";
         }
 
-        if (from.indexOf("+") !== 0) {
-            return `+1${from}`;
+        if (from.trim().indexOf("+") !== 0) {
+            return `+1${from.trim()}`;
         }
 
-        return from;
+        return from.trim();
     }
 
     get _message() {
