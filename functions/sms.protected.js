@@ -6,9 +6,9 @@ const Config = require(assets["/Config.js"].path);
 const InputCommandEnum = require(assets["/enums/InputCommandEnum.js"].path);
 const InputParserService = require(assets["/services/InputParserService.js"].path);
 const SubscribeAction = require(assets["/actions/SubscribeAction.js"].path);
+const WebhookService = require(assets["/services/WebhookService.js"].path);
 
 exports.handler = (context, event, callback) => {
-    const twiml = new Twilio.twiml.MessagingResponse();
     const parser = new InputParserService(event);
     const model = parser.commandInputModel;
     let outcome = null;
@@ -39,12 +39,17 @@ exports.handler = (context, event, callback) => {
             );
 
             break;
-    }
 
-    if (outcome == null) {
-        twiml.message(Config.InvalidRequest);
-        callback(null, twiml);
-        return;
+        default:
+            const webhook = new WebhookService();
+
+            outcome = webhook
+                .sendInvalidMessage(model.message, model.phoneNumber)
+                .then(() => {
+                    return Config.InvalidRequest;
+                });
+
+            break;
     }
 
     outcome

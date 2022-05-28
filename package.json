@@ -10,8 +10,9 @@
     "start:tunnel:debug": "twilio serverless:start --inspect=\"\" --ngrok=\"\""
   },
   "dependencies": {
-    "twilio": "3.76.1",
-    "@twilio/runtime-handler": "1.2.2"
+    "@twilio/runtime-handler": "1.2.2",
+    "axios": "^0.27.2",
+    "twilio": "3.76.1"
   },
   "devDependencies": {
     "twilio-run": "3.4.1"
