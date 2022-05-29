@@ -11,7 +11,7 @@ Here are all of the commands it supports:
 - `start`\*, `unstop`\*: Restart a user's subscription to any existing channels.
 - `cancel`\*, `stop`\*, `unsubscribe`\*: Stop receiving all messages from this service.
 
-The `broadcast` command is gated to prevent unauthorized phone numbers from sending broadcast messages. All new subscribers and any unrecognized messages are collected and sent [via a webhook](#webhooks) for any additional post-processing by the service owner.
+The `broadcast` command is gated to prevent unauthorized phone numbers from sending broadcast messages. Several commands dispatch an event [via a webhook](#webhooks) for any additional post-processing by the service owner.
 
 \* = Acts as a follow-up message to Twilio's built-in, automatic handling of these regulatory-required keywords. That mean's the messages specified in a Messaging application's Opt-Out Managment portal will be sent first, followed by a more user-specific response from this application.
 
