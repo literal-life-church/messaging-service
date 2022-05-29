@@ -53,7 +53,7 @@ To run your project, select either the Run Local configuration for `localhost` t
 
 While most of the configuration is stored inside of the [Config.private.js](/assets/Config.private.js) file, more sensitive information is offloaded into environment variables.
 
-Here are all of the environment variables this application expects during development and production. All are required, but Twilio can automatically add in some of them, as indicated by the last column.
+Here are all of the environment variables this application expects during development and production. All are required, but Twilio can automatically add in some of them, as indicated by the Added By Twilio Automatically column.
 
 | Variable Name                        | Purpose                                                                                                                                                                      | Added By Twilio Automatically | Used By    |
 |--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|------------|
