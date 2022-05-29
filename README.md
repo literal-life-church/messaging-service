@@ -5,10 +5,15 @@ Twilio Functions application used to manage our centralized messaging and automa
 Here are all of the commands it supports:
 
 - `subscribe`: Add a phone number to a channel used for general announcements and calendar event updates.
-- `broadcast <Message text>`: Sends a message to all numbers subscribed to the announcments and calendar events channel.
+- `broadcast <Message text>`: Sends a message to all numbers subscribed to the announcements and calendar events channel.
+- `help`\*, `info`\*, `information`\*: Determine whether your number is enrolled in any active channels.
 - `status`: Determine whether your number is enrolled in any active channels.
+- `start`\*, `unstop`\*: Restart a user's subscription to any existing channels.
+- `cancel`\*, `stop`\*, `unsubscribe`\*: Stop receiving all messages from this service.
 
-The `broadcast` command is gated to prevent unauthorized phone numbers from sending broadcast messages. All new subscribers and any unrecognized messages are collected and sent [via a webhook](#webhooks) for any additional post-processing by the service owner.
+The `broadcast` command is gated to prevent unauthorized phone numbers from sending broadcast messages. Several commands dispatch an event [via a webhook](#webhooks) for any additional post-processing by the service owner.
+
+\* = Acts as a follow-up message to Twilio's built-in, automatic handling of these regulatory-required keywords. That mean's the messages specified in a Messaging application's Opt-Out Managment portal will be sent first, followed by a more user-specific response from this application.
 
 ## Get Started
 
@@ -48,21 +53,30 @@ To run your project, select either the Run Local configuration for `localhost` t
 
 While most of the configuration is stored inside of the [Config.private.js](/assets/Config.private.js) file, more sensitive information is offloaded into environment variables.
 
-Here are all of the environment variables this application expects during development and production. All are required, but Twilio can automatically add in some of them, as indicated by the last column.
+Here are all of the environment variables this application expects during development and production. All are required, but Twilio can automatically add in some of them, as indicated by the Added By Twilio Automatically column.
 
-| Variable Name                        | Purpose                                                                                                                                                        |  Added By Twilio Automatically  |
-|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------:|
-| `ACCOUNT_SID`                        | Acts like a username to authorize this application to your Twilio account                                                                                      | :white_check_mark:              |
-| `AUTH_TOKEN`                         | Acts like your API key, or account password                                                                                                                    | :white_check_mark:              |
-| `AUTHORIZED_BROADCAST_PHONE_NUMBERS` | A comma-separated list of [E.164 formatted phone numbers](https://www.twilio.com/docs/glossary/what-e164) that are authorized to perform a `broadcast` command | :x:                             |
-| `NOTIFY_SERVICE_SID`                 | The ID of the Notify service which will collect phone numbers and send messages                                                                                | :x:                             |
-| `WEBHOOK_URL`                        | A webhook which can process events of interest, as described below                                                                                             | :x:                             |
+| Variable Name                        | Purpose                                                                                                                                                                      | Added By Twilio Automatically | Used By    |
+|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|------------|
+| `ACCOUNT_SID`                        | Acts like a username to authorize this application to your Twilio account                                                                                                    | :white_check_mark:            | App        |
+| `AUTH_TOKEN`                         | Acts like your API key, or account password                                                                                                                                  | :white_check_mark:            | App        |
+| `AUTHORIZED_BROADCAST_PHONE_NUMBERS` | A comma-separated list of [E.164 formatted phone numbers](https://www.twilio.com/docs/glossary/what-e164) that are authorized to perform a `broadcast` command               | :x:                           | App        |
+| `NOTIFY_SERVICE_SID`                 | The ID of the Notify service which will collect phone numbers and send messages                                                                                              | :x:                           | App        |
+| `SERVICE_NAME`                       | The name of the Twilio Functions service to deploy to                                                                                                                        | :x:                           | Deployment |
+| `TWILIO_API_KEY`                     | Like an `ACCOUNT_SID`, but [created specifically for the purpose of CI deployment](https://www.twilio.com/console/project/api-keys), to prevent compromise of the master key | :x:                           | Deployment |
+| `TWILIO_API_SECRET`                  | Like an `AUTH_TOKEN`, but [created specifically for the purpose of CI deployment](https://www.twilio.com/console/project/api-keys), to prevent compromise of the master key  | :x:                           | Deployment |
+| `WEBHOOK_URL`                        | A webhook which can process events of interest, as described below                                                                                                           | :x:                           | App        |
 
 ## Webhooks
 
-Webhooks are triggered under two circumstances: a new subscriber is recorded or an unknown message is received. That webhook is determined by the `WEBHOOK_URL` environment variable.
+Webhooks are triggered under a few circumstances:
 
-When receiving new subscriber, a POST request with the following payload is sent:
+- a new subscriber is recorded, or a user resubscribes
+- an unknown message is received
+- a user unsubscribes from the messaging service
+
+That webhook is determined by the `WEBHOOK_URL` environment variable.
+
+When receiving new subscriber or resubscribing a user, a POST request with the following payload is sent:
 
 ```json
 {
@@ -82,11 +96,20 @@ For an unknown message event, a POST request with the following payload is sent:
 }
 ```
 
+For unsubscribe events, a POST request with the following payload is sent:
+
+```json
+{
+    "phoneNumber": "<E.164 formatted phone number>",
+    "type": "Invalid Message"
+}
+```
+
 ## Usage on Twilio
 
 [Twilio has a guide](https://www.twilio.com/blog/2017/12/how-to-set-up-sms-broadcasts-in-five-minutes.html) for setting up their services to work with a broadcast application, like this. The major differences between that article and this application are as follows:
 
 1. Create a new Functions service on Twilio, not a Classic Functions service
 2. Ensure that your Functions instance on Twilio has all of the environment variables, as [described above](#environment-variables)
-3. Deploy this service from your machine to Twilio functions with: `twilio serveless:deploy`
+3. Deploy this service from your machine to Twilio functions with: `npm run deploy:prod`
 4. Proceed to use your new Functions service in place of the Classic service used in that article
