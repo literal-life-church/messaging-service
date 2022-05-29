@@ -5,6 +5,7 @@ const BroadcastAction = require(assets["/actions/BroadcastAction.js"].path);
 const Config = require(assets["/Config.js"].path);
 const InputCommandEnum = require(assets["/enums/InputCommandEnum.js"].path);
 const InputParserService = require(assets["/services/InputParserService.js"].path);
+const ResubscribeAction = require(assets["/actions/ResubscribeAction.js"].path);
 const StatusAction = require(assets["/actions/StatusAction.js"].path);
 const SubscribeAction = require(assets["/actions/SubscribeAction.js"].path);
 const UnsubscribeAction = require(assets["/actions/UnsubscribeAction.js"].path);
@@ -29,7 +30,16 @@ exports.handler = (context, event, callback) => {
             );
 
             break;
-        
+
+        case InputCommandEnum.RESUBSCRIBE:
+            const resubscribe = new ResubscribeAction(model);
+
+            outcome = resubscribe.run(
+                Config.Resubscribe.Message
+            );
+
+            break;
+
         case InputCommandEnum.STATUS:
             const status = new StatusAction(model);
 
@@ -51,7 +61,7 @@ exports.handler = (context, event, callback) => {
             );
 
             break;
-        
+
         case InputCommandEnum.UNSUBSCRIBE:
             const unsubscribe = new UnsubscribeAction(model);
             outcome = unsubscribe.run();
