@@ -13,6 +13,26 @@ const Config = {
 
     // endregion
 
+    // region Regulatory Messages
+
+    Help: {
+        IsNotRegistered: "You are not set up to receive any messages from Literal Life Church.",
+        IsRegistered: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}."
+    },
+
+    Resubscribe: {
+        Message: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}."
+    },
+
+    Status: {
+        IsNotRegistered: "You are not set up to receive any messages from Literal Life Church. Reply with HELP for more info.",
+        IsRegistered: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}. Reply with HELP for more info."
+    },
+
+    // endregion
+
+    // region Custom Actions
+
     AnnouncementCalendar: {
         BindingType: "sms",
         Tags: ["announcement", "calendar"],
@@ -28,16 +48,9 @@ const Config = {
             ExistingUser: "You are already set to receive announcements and calendar events from Literal Life Church. If you need assistance, please respond with the word HELP for more information.",
             NewUser: "You are now subscribed to receive future announcements and calendar events from Literal Life Church. Unsubscribe anytime by replying STOP to no longer receive messages."
         }
-    },
-
-    Resubscribe: {
-        Message: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}."
-    },
-
-    Status: {
-        IsNotRegistered: "You are not set up to receive any messages from Literal Life Church. Reply with HELP for more info.",
-        IsRegistered: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}. Reply with HELP for more info."
     }
+
+    // endregion
 };
 
 Object.freeze(Config);
