@@ -1,4 +1,4 @@
-name: Deploy Develop
+name: Deploy to the Dev Environment
 
 on:
   pull_request:
