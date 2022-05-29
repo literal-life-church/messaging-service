@@ -41,6 +41,11 @@ class InputParserService {
         switch (command) {
             case "broadcast":
                 return InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR;
+            
+            case "help":
+            case "info":
+            case "information":
+                return InputCommandEnum.HELP;
 
             case "start":
             case "unstop":

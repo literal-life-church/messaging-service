@@ -30,6 +30,16 @@ exports.handler = (context, event, callback) => {
             );
 
             break;
+        
+        case InputCommandEnum.HELP:
+            const help = new StatusAction(model);
+
+            outcome = help.run(
+                Config.Help.IsRegistered,
+                Config.Help.IsNotRegistered
+            );
+
+            break;
 
         case InputCommandEnum.RESUBSCRIBE:
             const resubscribe = new ResubscribeAction(model);
