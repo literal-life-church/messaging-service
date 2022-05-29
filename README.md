@@ -50,13 +50,13 @@ While most of the configuration is stored inside of the [Config.private.js](/ass
 
 Here are all of the environment variables this application expects during development and production. All are required, but Twilio can automatically add in some of them, as indicated by the last column.
 
-| Variable Name                        | Purpose                                                                                                                                                        | Added By Twilio Automatically |
-|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|
-| `ACCOUNT_SID`                        | Acts like a username to authorize this application to your Twilio account                                                                                      | :white_check_mark:            |
-| `AUTH_TOKEN`                         | Acts like your API key, or account password                                                                                                                    | :white_check_mark:            |
-| `AUTHORIZED_BROADCAST_PHONE_NUMBERS` | A comma-separated list of [E.164 formatted phone numbers](https://www.twilio.com/docs/glossary/what-e164) that are authorized to perform a `broadcast` command | :x:                           |
-| `NOTIFY_SERVICE_SID`                 | The ID of the Notify service which will collect phone numbers and send messages                                                                                | :x:                           |
-| `WEBHOOK_URL`                        | A webhook which can process events of interest, as described below                                                                                             | :x:                           |
+| Variable Name                        | Purpose                                                                                                                                                        |  Added By Twilio Automatically  |
+|--------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------:|
+| `ACCOUNT_SID`                        | Acts like a username to authorize this application to your Twilio account                                                                                      | :white_check_mark:              |
+| `AUTH_TOKEN`                         | Acts like your API key, or account password                                                                                                                    | :white_check_mark:              |
+| `AUTHORIZED_BROADCAST_PHONE_NUMBERS` | A comma-separated list of [E.164 formatted phone numbers](https://www.twilio.com/docs/glossary/what-e164) that are authorized to perform a `broadcast` command | :x:                             |
+| `NOTIFY_SERVICE_SID`                 | The ID of the Notify service which will collect phone numbers and send messages                                                                                | :x:                             |
+| `WEBHOOK_URL`                        | A webhook which can process events of interest, as described below                                                                                             | :x:                             |
 
 ## Webhooks
 
