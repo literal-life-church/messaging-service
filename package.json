@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "deploy": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET",
-    "deploy:stage": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET --environment stage",
-    "deploy:prod": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET --production",
+    "deploy:dev": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET --service-name $SERVICE_NAME  --environment dev",
+    "deploy:stage": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET --service-name $SERVICE_NAME --environment stage",
+    "deploy:prod": "twilio-run deploy --override-existing-project --username $TWILIO_API_KEY --password $TWILIO_API_SECRET --service-name $SERVICE_NAME --production",
     "start": "twilio serverless:start",
     "start:debug": "twilio serverless:start --inspect=\"\"",
     "start:tunnel": "twilio serverless:start --ngrok=\"\"",
