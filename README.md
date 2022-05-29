@@ -6,7 +6,7 @@ Here are all of the commands it supports:
 
 - `subscribe`: Add a phone number to a channel used for general announcements and calendar event updates.
 - `broadcast <Message text>`: Sends a message to all numbers subscribed to the announcments and calendar events channel.
-- `status`: Determine where your number is enrolled in any active channels.
+- `status`: Determine whether your number is enrolled in any active channels.
 
 The `broadcast` command is gated to prevent unauthorized phone numbers from sending broadcast messages. All new subscribers and any unrecognized messages are collected and sent [via a webhook](#webhooks) for any additional post-processing by the service owner.
 
