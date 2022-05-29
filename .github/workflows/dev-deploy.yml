@@ -2,9 +2,6 @@ name: Deploy Develop
 
 on:
   pull_request:
-    branches-ignore:    
-      - 'develop'
-      - 'master'
 
 jobs:
   build:
