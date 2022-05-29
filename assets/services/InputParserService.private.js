@@ -42,6 +42,9 @@ class InputParserService {
             case "broadcast":
                 return InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR;
 
+            case "status":
+                return InputCommandEnum.STATUS;
+
             case "subscribe":
             case "suscribe": // Common misspelling of "subscribe"
             case "subcribe": // Another one
