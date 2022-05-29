@@ -50,6 +50,13 @@ class InputParserService {
             case "subcribe": // Another one
                 return InputCommandEnum.SUBSCRIBE_ANNOUNCEMENT_CALENDAR;
 
+            case "cancel":
+            case "stop":
+            case "unsubscribe":
+            case "unsuscribe": // Common misspelling of "unsubscribe"
+            case "unsubcribe": // Another one
+                return InputCommandEnum.UNSUBSCRIBE;
+
             default:
                 return InputCommandEnum.NONE;
         }

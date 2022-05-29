@@ -7,6 +7,7 @@ const InputCommandEnum = require(assets["/enums/InputCommandEnum.js"].path);
 const InputParserService = require(assets["/services/InputParserService.js"].path);
 const StatusAction = require(assets["/actions/StatusAction.js"].path);
 const SubscribeAction = require(assets["/actions/SubscribeAction.js"].path);
+const UnsubscribeAction = require(assets["/actions/UnsubscribeAction.js"].path);
 const WebhookService = require(assets["/services/WebhookService.js"].path);
 
 exports.handler = (context, event, callback) => {
@@ -40,15 +41,20 @@ exports.handler = (context, event, callback) => {
             break;
 
         case InputCommandEnum.SUBSCRIBE_ANNOUNCEMENT_CALENDAR:
-            const action = new SubscribeAction(model);
+            const subscribe = new SubscribeAction(model);
 
-            outcome = action.run(
+            outcome = subscribe.run(
                 Config.AnnouncementCalendar.Subscribe.NewUser,
                 Config.AnnouncementCalendar.Subscribe.ExistingUser,
                 Config.AnnouncementCalendar.BindingType,
                 Config.AnnouncementCalendar.Tags
             );
 
+            break;
+        
+        case InputCommandEnum.UNSUBSCRIBE:
+            const unsubscribe = new UnsubscribeAction(model);
+            outcome = unsubscribe.run();
             break;
 
         default:
@@ -66,7 +72,7 @@ exports.handler = (context, event, callback) => {
     outcome
         .then(message => {
             const twiml = new Twilio.twiml.MessagingResponse();
-            twiml.message(message);
+            if (message != null) twiml.message(message);
             callback(null, twiml);
         })
         .catch(error => {
