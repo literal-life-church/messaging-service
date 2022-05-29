@@ -24,6 +24,14 @@ class WebhookService {
         return this._send(payload.toJson());
     }
 
+    sendResubscribe(phoneNumber, tags) {
+        const payload = new NewSubscriberWebhookModel(
+            phoneNumber, tags, "Resubscribed"
+        );
+
+        return this._send(payload.toJson());
+    }
+
     sendUnsubscribe(phoneNumber) {
         const payload = new UnsubscribeWebhookModel(
             phoneNumber, "Unsubscribe"

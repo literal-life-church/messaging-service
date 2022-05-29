@@ -30,6 +30,10 @@ const Config = {
         }
     },
 
+    Resubscribe: {
+        Message: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}."
+    },
+
     Status: {
         IsNotRegistered: "You are not set up to receive any messages from Literal Life Church. Reply with HELP for more info.",
         IsRegistered: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}. Reply with HELP for more info."

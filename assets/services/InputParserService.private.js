@@ -42,6 +42,10 @@ class InputParserService {
             case "broadcast":
                 return InputCommandEnum.BROADCAST_ANNOUNCEMENT_CALENDAR;
 
+            case "start":
+            case "unstop":
+                return InputCommandEnum.RESUBSCRIBE;
+
             case "status":
                 return InputCommandEnum.STATUS;
 
