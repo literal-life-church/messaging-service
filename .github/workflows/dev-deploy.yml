@@ -1,8 +1,10 @@
 name: Deploy Develop
 
 on:
-  push:
-    branches: [ develop ]
+  pull_request:
+    branches-ignore:    
+      - 'develop'
+      - 'master'
 
 jobs:
   build:
@@ -25,6 +27,7 @@ jobs:
       env:
         AUTHORIZED_BROADCAST_PHONE_NUMBERS: ${{ secrets.AUTHORIZED_BROADCAST_PHONE_NUMBERS }}
         NOTIFY_SERVICE_SID: ${{ secrets.NOTIFY_SERVICE_SID }}
+
         TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
         TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET }}
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
