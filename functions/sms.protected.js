@@ -5,6 +5,7 @@ const BroadcastAction = require(assets["/actions/BroadcastAction.js"].path);
 const Config = require(assets["/Config.js"].path);
 const InputCommandEnum = require(assets["/enums/InputCommandEnum.js"].path);
 const InputParserService = require(assets["/services/InputParserService.js"].path);
+const StatusAction = require(assets["/actions/StatusAction.js"].path);
 const SubscribeAction = require(assets["/actions/SubscribeAction.js"].path);
 const WebhookService = require(assets["/services/WebhookService.js"].path);
 
@@ -24,6 +25,16 @@ exports.handler = (context, event, callback) => {
                 Config.AnnouncementCalendar.Broadcast.AuthorizedPhoneNumbers,
                 Config.AnnouncementCalendar.BindingType,
                 Config.AnnouncementCalendar.Tags
+            );
+
+            break;
+        
+        case InputCommandEnum.STATUS:
+            const status = new StatusAction(model);
+
+            outcome = status.run(
+                Config.Status.IsRegistered,
+                Config.Status.IsNotRegistered
             );
 
             break;
