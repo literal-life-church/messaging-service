@@ -1,9 +1,8 @@
 {
   "name": "literal-life-church-messaging-service",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "deploy": "twilio serverless:deploy",
     "start": "twilio serverless:start",
     "start:debug": "twilio serverless:start --inspect=\"\"",
     "start:tunnel": "twilio serverless:start --ngrok=\"\"",
