@@ -4,11 +4,20 @@ const assets = Runtime.getAssets();
 const axios = require('axios').default;
 const Config = require(assets["/Config.js"].path);
 const InvalidMessageWebhookModel = require(assets["/models/InvalidMessageWebhookModel.js"].path);
+const NewSubscriberWebhookModel = require(assets["/models/NewSubscriberWebhookModel.js"].path);
 
 class WebhookService {
     sendInvalidMessage(message, phoneNumber) {
         const payload = new InvalidMessageWebhookModel(
             message, phoneNumber, "Invalid Message"
+        );
+
+        return this._send(payload.toJson());
+    }
+
+    sendNewSubscriber(phoneNumber, tags) {
+        const payload = new NewSubscriberWebhookModel(
+            phoneNumber, tags, "New Subscriber"
         );
 
         return this._send(payload.toJson());

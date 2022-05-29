@@ -3,6 +3,7 @@
 const assets = Runtime.getAssets();
 const BaseAction = require(assets["/actions/BaseAction.js"].path);
 const Crypto = require("crypto");
+const WebhookService = require(assets["/services/WebhookService.js"].path);
 
 class SubscribeAction extends BaseAction {
     run(registrationSuccessMessage, alreadyRegisteredMessage, bindingType, tags) {
@@ -21,9 +22,17 @@ class SubscribeAction extends BaseAction {
                     tag: tags
                 });
             })
-            .then(notification => {
-                if (notification == null) {
-                    return alreadyRegisteredMessage
+            .then(response => {
+                if (response == null) {
+                    return null;
+                } else {
+                    const webhook = new WebhookService();
+                    return webhook.sendNewSubscriber(this.phoneNumber, tags);
+                }
+            })
+            .then(response => {
+                if (response == null) {
+                    return alreadyRegisteredMessage;
                 } else {
                     return registrationSuccessMessage;
                 }
