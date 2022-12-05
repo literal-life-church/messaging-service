@@ -21,7 +21,7 @@ const Config = {
     },
 
     Resubscribe: {
-        Message: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}."
+        Message: "You are currently set up to receive messages from Literal Life Church on the following channels: {tags}. Unsubscribe anytime by replying STOP to opt-out. Reply HELP for assistance."
     },
 
     Status: {
@@ -45,8 +45,8 @@ const Config = {
         },
 
         Subscribe: {
-            ExistingUser: "You are already set to receive announcements and calendar events from Literal Life Church. If you need assistance, please respond with the word HELP for more information.",
-            NewUser: "You are now subscribed to receive future announcements and calendar events from Literal Life Church. Unsubscribe anytime by replying STOP to no longer receive messages."
+            ExistingUser: "You are already set to receive announcements and calendar events from Literal Life Church. Unsubscribe anytime by replying STOP to opt-out. Reply HELP for assistance.",
+            NewUser: "You are now subscribed to receive future announcements and calendar events from Literal Life Church. Unsubscribe anytime by replying STOP to opt-out. Reply HELP for assistance."
         }
     }
 
